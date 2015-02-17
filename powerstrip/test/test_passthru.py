@@ -94,8 +94,10 @@ class BasicTests(TestCase, GenerallyUsefulPowerstripTestMixin):
                 realDockerSocket="/var/run/docker.sock")
         self.config.read_and_parse()
         d = CompareDockerAndPowerstrip(self,
-            "docker run ubuntu echo hello")
+            "docker run ubuntu echo hello", usePTY=True)
         def assertions((powerstrip, docker)):
+            print "got powerstrip", powerstrip
+            print "got docker", docker
             self.assertNotIn("fatal", docker)
             self.assertNotIn("fatal", powerstrip)
             self.assertIn("hello", docker)
